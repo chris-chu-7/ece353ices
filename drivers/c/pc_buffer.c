@@ -86,3 +86,4 @@ bool pc_buffer_full(PC_Buffer *buffer)
 {
 	return buffer->produce_count - buffer->consume_count == buffer->BUFFER_SIZE;
 }//buffernation has a git test
+//test 2
