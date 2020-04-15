@@ -65,7 +65,20 @@
 //*****************************************************************************
 static __inline void  port_f_enable_port(void)
 {
-  
+	//turn on the clock for port F
+
+		SYSCTL->RCGCGPIO |= SYSCTL_RCGCGPIO_R5;
+	
+	//wait until the clock is on by checking PRGPIO
+	
+		while(!(SYSCTL->PRGPIO & SYSCTL_PRGPIO_R5)){
+			continue;
+		}
+		
+		//set the lock
+		GPIO_PORTF_LOCK_R = 0x4C4F434B;
+		//set the commit register
+		GPIO_PORTF_CR_R = 0xFF;
 }
 
 
@@ -84,7 +97,8 @@ static __inline void  port_f_enable_port(void)
 //*****************************************************************************
 static __inline void  port_f_digital_enable(uint8_t bit_mask)
 {
-
+		//determine the bits to set the DEN register. 
+		GPIOF->DEN |= bit_mask;
 }
 
 
