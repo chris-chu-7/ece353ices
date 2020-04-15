@@ -117,7 +117,7 @@ static __inline void  port_f_digital_enable(uint8_t bit_mask)
 //*****************************************************************************
 static __inline void  port_f_enable_output(uint8_t bit_mask)
 {
-  
+  GPIOF->DIR |= bit_mask;
 }
 
 //*****************************************************************************
@@ -135,7 +135,7 @@ static __inline void  port_f_enable_output(uint8_t bit_mask)
 //*****************************************************************************
 static __inline void  port_f_enable_input(uint8_t bit_mask)
 {
-
+	GPIOF->DIR &= ~bit_mask;
 }
 
 //*****************************************************************************
@@ -153,6 +153,7 @@ static __inline void  port_f_enable_input(uint8_t bit_mask)
 //*****************************************************************************
 static __inline void  port_f_enable_pull_up(uint8_t bit_mask)
 {
+	GPIOF->PUR |= bit_mask;
 
 }
 
@@ -166,6 +167,8 @@ static __inline void  port_f_enable_pull_up(uint8_t bit_mask)
 //*****************************************************************************
 void  lp_io_set_pin(uint8_t pin_number)
 {
+	uint8_t setPin = 1 << pin_number;
+	GPIOF->DATA |= setPin;
 
 }
 
@@ -179,7 +182,8 @@ void  lp_io_set_pin(uint8_t pin_number)
 //*****************************************************************************
 void  lp_io_clear_pin(uint8_t pin_number)
 {
-
+	uint8_t setPin = ~(1 << pin_number);
+	GPIOF->DATA &= setPin;
 }
 
 //*****************************************************************************
@@ -194,6 +198,8 @@ void  lp_io_clear_pin(uint8_t pin_number)
 //*****************************************************************************
 bool  lp_io_read_pin(uint8_t pin_number)
 {
+	uint8_t toCompare = 1 << pin_number;
+	return GPIOF->DATA & toCompare;
   
 }
 
@@ -204,6 +210,16 @@ bool  lp_io_read_pin(uint8_t pin_number)
 ********************************************************************************/
 void lp_io_init(void)
 {
-
+	
+	//enable RCGC for port F
+	port_f_enable_port();
+	//Configure the pins on Port F connected to the LEDs and push buttons as digital pins
+	port_f_digital_enable(RED_M | GREEN_M | BLUE_M | SW1_M | SW2_M); 
+	//Configure the pins connected to the LEDs as output
+	port_f_enable_output(RED_M | GREEN_M | BLUE_M);
+	//Configure the pins connected to the push buttons as inputs
+	port_f_enable_input(SW1_M | SW2_M);
+	//Enable pull-up resistors on the pins connected to the push buttons.
+	port_f_enable_pull_up(SW1_M | SW2_M);
 }
 
