@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\obj\ece353_base_project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\obj\ece353_base_project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Apr 14 23:30:28 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Apr 15 09:35:42 2020
 <BR><P>
 <H3>Maximum Stack Usage =        384 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -315,19 +315,24 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[76]"></a>main</STRONG> (Thumb, 88 bytes, Stack size 0 bytes, main.o(.text))
+<P><STRONG><a name="[76]"></a>main</STRONG> (Thumb, 96 bytes, Stack size 0 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 384<LI>Call Chain = main &rArr; validate_ice &rArr; ice_validate_gpio_port &rArr; print_pin_status &rArr; print_test_status &rArr; __2sprintf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;validate_ice
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;put_string
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pc_buffer_init
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pc_buffer_test_1
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pc_buffer_test_0
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DisableInterrupts
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
-<P><STRONG><a name="[89]"></a>pc_buffer_init</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, pc_buffer.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
+<P><STRONG><a name="[89]"></a>pc_buffer_init</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, pc_buffer.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = pc_buffer_init &rArr; malloc
+</UL>
+<BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
+</UL>
+<BR>[Called By]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[80]"></a>pc_buffer_add</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, pc_buffer.o(.text))
@@ -344,7 +349,7 @@ Global Symbols
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pc_buffer_test_0
 </UL>
 
-<P><STRONG><a name="[81]"></a>pc_buffer_empty</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, pc_buffer.o(.text))
+<P><STRONG><a name="[81]"></a>pc_buffer_empty</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, pc_buffer.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pc_buffer_test_1
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pc_buffer_test_0
 </UL>

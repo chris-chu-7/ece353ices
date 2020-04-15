@@ -200,6 +200,8 @@ main(void)
   put_string("**************************************\n\r");
   
   // ADD CODE 10
+	
+	pc_buffer_init(&Circular_Buffer, BUFFER_SIZE);
   
   if (pc_buffer_test_0(BUFFER_SIZE) )
   {

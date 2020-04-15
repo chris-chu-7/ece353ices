@@ -34,7 +34,7 @@ void pc_buffer_init(PC_Buffer *buffer, uint16_t buffer_size)
 	buffer->consume_count = 0;
 	buffer -> produce_count = 0;
 	buffer ->BUFFER_SIZE = buffer_size;
-	buffer->array = malloc(buffer_size);
+	buffer->array = malloc(buffer_size * 1);
 	
 }
 
@@ -47,8 +47,7 @@ void pc_buffer_init(PC_Buffer *buffer, uint16_t buffer_size)
 //*****************************************************************************
 void pc_buffer_add(PC_Buffer *buffer, char data)
 {
-	uint16_t sizeOfBuffer = buffer->BUFFER_SIZE;
-	buffer->array[buffer->produce_count % sizeOfBuffer] = data;
+	buffer->array[buffer->produce_count % buffer->BUFFER_SIZE] = data;
 	buffer->produce_count++;
 }
 
@@ -73,7 +72,7 @@ void pc_buffer_remove(PC_Buffer *buffer, char *data)
 //*****************************************************************************
 bool pc_buffer_empty(PC_Buffer *buffer)
 {
-	return buffer->produce_count = buffer->consume_count;
+	return buffer->produce_count == buffer->consume_count;
 }
 
 //*****************************************************************************
