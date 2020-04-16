@@ -29,22 +29,23 @@ __INLINE static void lcd_write_cmd_u8(uint8_t DL)
   // ADD CODE
   
   // Start a transaction to the LCD by setting LCD_CSX low
-
+	LCD_CSX = LINE_LOW;
   // Indicate this is a command by setting the value on the LCD_DCX GPIO Pin
-
+	LCD_DCX = LINE_LOW;
   
   // Send the 8 bits of the command
-
+	LCD_DATA = DL;
   
   // Set the write signal LCD_WRX low
-
+	LCD_WRX = LINE_LOW;
 
   // Set the write signal LCD_WRX high
-
+	LCD_WRX = LINE_HIGH;
   // Indicate the next transaction is data by setting the LCD_DCX GPIO Pin
 
-
+	LCD_DCX = LINE_HIGH;
   // End the transaction to the LCD by setting LCD_CSX high
+	LCD_CSX = LINE_HIGH;
 }
 
 /*******************************************************************************
@@ -59,18 +60,18 @@ __INLINE static void  lcd_write_data_u8 (uint8_t x)
   // ADD CODE
   
   // Start a transaction to the LCD by setting LCD_CSX low
-
+	LCD_CSX = LINE_LOW;
   // Send the 8 bits of data
-
+	LCD_DATA = x;
     
   // Set the write signal LCD_WRX low
-
+	LCD_WRX = LINE_LOW;
 
   // Set the write signal LCD_WRX high
-
+	LCD_WRX = LINE_HIGH;
 
   // End the transaction to the LCD by setting LCD_CSX high
-
+	LCD_CSX = LINE_HIGH;
 }
 
 /*******************************************************************************
