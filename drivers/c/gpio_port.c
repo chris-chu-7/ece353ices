@@ -357,6 +357,16 @@ bool  gpio_config_analog_enable(uint32_t baseAddr, uint8_t pins)
   // Verify that the base address is a valid GPIO base address
   // using the verify_base_addr function provided above
   
+	if(!verify_base_addr(baseAddr)){
+				return false;
+	}
+	
+	gpioPort = (GPIOA_Type*)baseAddr;
+	gpioPort->AMSEL |= pins; 
+	
+	
+	
+	
   return true;
 }
 
@@ -368,7 +378,16 @@ bool  gpio_config_alternate_function(uint32_t baseAddr, uint8_t pins)
   // ADD CODE
   // Verify that the base address is a valid GPIO base address
   // using the verify_base_addr function provided above
-    
+  	if(!verify_base_addr(baseAddr)){
+				return false;
+	}
+	
+	gpioPort = (GPIOA_Type*)baseAddr;
+	gpioPort->AFSEL |= pins; 
+	  
+	
+	
+	
   return true;
 }
 

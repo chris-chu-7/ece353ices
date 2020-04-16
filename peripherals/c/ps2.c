@@ -34,6 +34,10 @@
 *******************************************************************************/
 static void initialize_adc_gpio_pins(void)
 {
+	gpio_enable_port(GPIOE_BASE);
+	gpio_config_enable_input(GPIOE_BASE, PS2_X_DIR_MASK | PS2_Y_DIR_MASK);
+	gpio_config_analog_enable(GPIOE_BASE, PS2_X_DIR_MASK | PS2_Y_DIR_MASK);
+	gpio_config_alternate_function(GPIOE_BASE, PS2_X_DIR_MASK | PS2_Y_DIR_MASK);
 }
 
 /*******************************************************************************
@@ -54,11 +58,9 @@ void ps2_initialize(void)
 *Returns the most current reading of the X direction  Only the lower 12-bits
 * contain data.
 ********************************************************************************/
-uint16_t ps2_get_x(void)
+uint16_t ps2_get_x(void) //joystick in the x direction
 {
-  uint16_t adc_val;
-  
-  return adc_val;
+  return get_adc_value(PS2_ADC_BASE, PS2_X_ADC_CHANNEL);
 }
 
 /*******************************************************************************
@@ -67,10 +69,8 @@ uint16_t ps2_get_x(void)
 * Returns the most current reading of the Y direction.  Only the lower 12-bits
 *  contain data.
 ********************************************************************************/
-uint16_t ps2_get_y(void)
+uint16_t ps2_get_y(void) //joystick in Y direction
 {
-  uint16_t adc_val;
-  
-  return adc_val;
+  return get_adc_value(PS2_ADC_BASE, PS2_Y_ADC_CHANNEL);
 }
 

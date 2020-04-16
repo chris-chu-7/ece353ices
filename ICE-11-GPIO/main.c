@@ -39,6 +39,7 @@ main(void)
   // Run validation code
   if( validate_ice(ICE_GPIO_PORT) == false)
   {
+		
     while(1){
     };
   }
