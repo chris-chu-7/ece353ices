@@ -285,6 +285,37 @@ bool uart_init(uint32_t uart_base, bool enable_rx_irq, bool enable_tx_irq)
     
     // ADD CODE
     
+		//wait for the peripheral to become ready 
+		SYSCTL->RCGCUART |= rcgc_mask;
+		while(!(SYSCTL->PRUART & pr_mask)){}
+			
+		//disable the UART
+		uart->CTL &= ~UART_CTL_UARTEN;
+			
+		//set the baud rate to be 115200
+			uart->IBRD = 27;
+			uart->FBRD = 8;
+			
+			
+			//configure the UART for 8N1
+			uart->LCRH |= UART_LCRH_FEN | UART_LCRH_WLEN_8;
+			
+			if(enable_rx_irq){
+				uart->IM |= UART_IM_RXIM | UART_IM_RTIM;
+			}
+		
+			
+			if(enable_tx_irq){
+				uart->IM |= UART_IM_TXIM;
+			}
+			
+			if(enable_rx_irq || enable_tx_irq){
+				NVIC_SetPriority(uart_get_irq_num(uart_base), 0);
+				NVIC_EnableIRQ(uart_get_irq_num(uart_base));
+			}
+			
+			uart->CTL |= UART_CTL_UARTEN | UART_CTL_TXE | UART_CTL_RXE;
+		
     return true;
 
 }
