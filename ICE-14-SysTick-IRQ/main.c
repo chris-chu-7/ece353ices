@@ -23,6 +23,8 @@
 #include "main.h"
 
 // ADD CODE
+volatile uint8_t DUTY_CYCLE;
+volatile bool ALERT_ADC_UPDATE; 
 
 /*******************************************************************************
 * Function Name: configure_gpio_pins
@@ -50,6 +52,21 @@ void configure_hardware(void)
 *
 *******************************************************************************/
 // ADD CODE
+
+void SysTick_Handler(void){
+	SysTick->VAL = SysTick->VAL + 1;
+	if((SysTick->VAL % 100) >= DUTY_CYCLE){
+		lp_io_set_pin(2);
+	} else {
+		lp_io_clear_pin(2);
+	}
+	
+	ALERT_ADC_UPDATE = false;
+	if((SysTick ->VAL % 100 == 0)){
+			ALERT_ADC_UPDATE = true;
+	}
+	
+}
 
 /*******************************************************************************
 * Function Name: main
@@ -84,6 +101,7 @@ main(void)
   while(1)
   {
     // ADD CODE
-    
+		DUTY_CYCLE = ps2_get_x() * 100/4095;
+  
   }
 }
